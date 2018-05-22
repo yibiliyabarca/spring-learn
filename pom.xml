@@ -48,6 +48,7 @@
         <module>spring-ioc</module>
         <module>spring-aop</module>
         <module>spring-mvc</module>
+        <module>spring-cache</module>
     </modules>
 
     <dependencyManagement>
