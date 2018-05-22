@@ -20,6 +20,17 @@
                 <bean
                         class="org.springframework.cache.concurrent.ConcurrentMapCacheFactoryBean"
                         p:name="accountCache" />
+                <bean
+                        class="com.chen.spring.learn.bean.MyCache"
+                        p:name="myCache" />
+            </set>
+        </property>
+    </bean>
+
+    <bean id="myCacheManager" class="com.chen.spring.learn.bean.MyCacheManager">
+        <property name="caches">
+            <set>
+
             </set>
         </property>
     </bean>

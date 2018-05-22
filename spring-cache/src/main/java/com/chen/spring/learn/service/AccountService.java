@@ -1,6 +1,8 @@
 package com.chen.spring.learn.service;
 
 import com.chen.spring.learn.bean.Account;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Component;
 
@@ -9,11 +11,21 @@ import org.springframework.stereotype.Component;
  */
 @Component
 public class AccountService {
-    @Cacheable(value="default")// 使用了一个缓存名叫 accountCache
+    @Cacheable(value="myCache")// 使用了一个缓存名叫 accountCache
     public Account getAccountByName(String userName) {
         // 方法内部实现不考虑缓存逻辑，直接实现业务
-        System.out.println("real query account."+userName);
         return getFromDB(userName);
+    }
+
+    @CacheEvict(value = "myCache" , key = "#userName")
+    public void updateAccount(String userName, Account account){
+        System.out.println("update account in DB,userName:" + userName);
+    }
+
+    @CachePut(value = "myCache", key = "#userName")
+    public Account getAccountAndSetCahe(String userName, Account account){
+        System.out.println("update account in DB,userName:" + userName);
+        return account;
     }
 
     private Account getFromDB(String acctName) {
